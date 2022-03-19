@@ -1,12 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  useQuery,
-  gql,
-} from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider, useQuery, gql } from '@apollo/client';
 
 const client = new ApolloClient({
   uri: 'http://localhost:3000/graphql',
@@ -18,18 +12,18 @@ function Menu() {
     {
       menu {
         starters {
-          id,
-          name,
+          id
+          name
           price
         }
         mains {
-          id,
-          name,
+          id
+          name
           price
         }
         desserts {
-          id,
-          name,
+          id
+          name
           price
         }
       }
@@ -47,10 +41,7 @@ function Menu() {
           <span>STARTERS</span>
           {starters.map(({ name: starterName, price }) => (
             <p key={starterName}>
-              {starterName}
-              :
-              {' '}
-              {price}
+              {starterName}: {price}
             </p>
           ))}
         </div>
@@ -58,10 +49,7 @@ function Menu() {
           <span>MAIN</span>
           {mains.map(({ name: mainName, price }) => (
             <p key={mainName}>
-              {mainName}
-              :
-              {' '}
-              {price}
+              {mainName}: {price}
             </p>
           ))}
         </div>
@@ -69,10 +57,7 @@ function Menu() {
           <span>DESSERTS</span>
           {desserts.map(({ name: dessertName, price }) => (
             <p key={dessertName}>
-              {dessertName}
-              :
-              {' '}
-              {price}
+              {dessertName}: {price}
             </p>
           ))}
         </div>
@@ -95,5 +80,5 @@ render(
   <ApolloProvider client={client}>
     <App />
   </ApolloProvider>,
-  document.getElementById('root'),
+  document.getElementById('root')
 );
