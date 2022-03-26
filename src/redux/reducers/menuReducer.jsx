@@ -1,14 +1,9 @@
-const initialState = [
-  { courseId: 'starters', courseItems: [] },
-  { courseId: 'mains', courseItems: [] },
-  { courseId: 'desserts', courseItems: [] },
-];
+const initialState = [];
 
-const menu = (state = initialState, { type } = {}) => {
+const menu = (state = initialState, { type, payload } = {}) => {
   switch (type) {
     case 'INIT_MENU':
-      // todo
-      return state;
+      return payload;
     default:
       return state;
   }

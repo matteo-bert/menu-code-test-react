@@ -1,14 +1,16 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Col, ListGroup, ListGroupItem, Row } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 
 import CurrencyContext from './CurrencyContext';
 import CourseAction from './CourseActions';
 
-function CourseOptionGroup({ title, options }) {
+function CourseOptionGroup({ id }) {
   const currency = useContext(CurrencyContext);
-  const groupOptions = options.map((opt) => (
-    <ListGroupItem key={`cog-${title}-${opt.id}`}>
+  const courseOptions = useSelector((state) => state.menu[id]);
+  const groupOptions = courseOptions.map((opt) => (
+    <ListGroupItem key={`cog-${id}-${opt.id}`}>
       <Row>
         <Col md="6">{opt.name}</Col>
         <Col md="4" style={{ textAlign: 'right' }}>
@@ -23,27 +25,16 @@ function CourseOptionGroup({ title, options }) {
 
   return (
     <>
-      <h5 style={{ paddingTop: '15px' }}>{title}</h5>
-      <ListGroup id={title} variant="flush">
+      <h5 style={{ paddingTop: '15px' }}>{id.toUpperCase()}</h5>
+      <ListGroup id={id} variant="flush">
         {groupOptions}
       </ListGroup>
     </>
   );
 }
 
-CourseOptionGroup.defaultProps = {
-  options: [],
-};
-
 CourseOptionGroup.propTypes = {
-  title: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-    })
-  ),
+  id: PropTypes.string.isRequired,
 };
 
 export default CourseOptionGroup;
