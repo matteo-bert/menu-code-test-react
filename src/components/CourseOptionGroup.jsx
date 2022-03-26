@@ -3,15 +3,19 @@ import PropTypes from 'prop-types';
 import { Col, ListGroup, ListGroupItem, Row } from 'react-bootstrap';
 
 import CurrencyContext from './CurrencyContext';
+import CourseAction from './CourseActions';
 
 function CourseOptionGroup({ title, options }) {
   const currency = useContext(CurrencyContext);
   const groupOptions = options.map((opt) => (
-    <ListGroupItem key={`cog-${title}-${opt.id}`} action tag="a" onClick={() => console.log('chosen ', opt.id)}>
+    <ListGroupItem key={`cog-${title}-${opt.id}`}>
       <Row>
-        <Col>{opt.name}</Col>
-        <Col style={{ textAlign: 'right' }}>
+        <Col md="6">{opt.name}</Col>
+        <Col md="4" style={{ textAlign: 'right' }}>
           {currency} {opt.price.toFixed(2)}
+        </Col>
+        <Col md="1" style={{ textAlign: 'right' }}>
+          <CourseAction courseId={opt.id} />
         </Col>
       </Row>
     </ListGroupItem>
