@@ -2,6 +2,7 @@ import React from 'react';
 import { useQuery } from '@apollo/client';
 
 import MenuAPI from '../api/MenuAPI';
+import CourseOptionGroup from './CourseOptionGroup';
 
 function Menu() {
   const { loading, error, data } = useQuery(MenuAPI);
@@ -11,36 +12,16 @@ function Menu() {
 
   if (data && data.menu) {
     const { starters, mains, desserts } = data.menu;
+
     return (
       <>
-        <div key="starters">
-          <span>STARTERS</span>
-          {starters.map(({ name: starterName, price }) => (
-            <p key={starterName}>
-              {starterName}: {price}
-            </p>
-          ))}
-        </div>
-        <div key="main">
-          <span>MAIN</span>
-          {mains.map(({ name: mainName, price }) => (
-            <p key={mainName}>
-              {mainName}: {price}
-            </p>
-          ))}
-        </div>
-        <div key="desserts">
-          <span>DESSERTS</span>
-          {desserts.map(({ name: dessertName, price }) => (
-            <p key={dessertName}>
-              {dessertName}: {price}
-            </p>
-          ))}
-        </div>
+        <CourseOptionGroup title="Starters" options={starters} />
+        <CourseOptionGroup title="Mains" options={mains} />
+        <CourseOptionGroup title="Desserts" options={desserts} />
       </>
     );
   }
-  return <p>No results :(</p>;
+  return <p>Kitchen is closed</p>;
 }
 
 export default Menu;
