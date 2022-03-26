@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Col, ListGroup, ListGroupItem, Row } from 'react-bootstrap';
 
+import CurrencyContext from './CurrencyContext';
+
 function CourseOptionGroup({ title, options }) {
-  const currency = '€';
+  const currency = useContext(CurrencyContext);
   const groupOptions = options.map((opt) => (
     <ListGroupItem key={`cog-${title}-${opt.id}`} action tag="a" onClick={() => console.log('chosen ', opt.id)}>
       <Row>

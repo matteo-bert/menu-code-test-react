@@ -14,11 +14,11 @@ function Menu() {
     const { starters, mains, desserts } = data.menu;
 
     return (
-      <>
+      <div>
         <CourseOptionGroup title="Starters" options={starters} />
         <CourseOptionGroup title="Mains" options={mains} />
         <CourseOptionGroup title="Desserts" options={desserts} />
-      </>
+      </div>
     );
   }
   return <p>Kitchen is closed</p>;

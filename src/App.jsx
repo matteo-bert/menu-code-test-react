@@ -4,6 +4,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Col, Row } from 'react-bootstrap';
 
+import CurrencyContext from './components/CurrencyContext';
 import Header from './components/Header';
 import Menu from './components/Menu';
 import Order from './components/Order';
@@ -12,6 +13,8 @@ const client = new ApolloClient({
   uri: 'http://localhost:3000/graphql',
   cache: new InMemoryCache(),
 });
+
+const currency = '€';
 
 function App() {
   return (
@@ -35,7 +38,9 @@ function App() {
 
 render(
   <ApolloProvider client={client}>
-    <App />
+    <CurrencyContext.Provider value={currency}>
+      <App />
+    </CurrencyContext.Provider>
   </ApolloProvider>,
   document.getElementById('root')
 );
