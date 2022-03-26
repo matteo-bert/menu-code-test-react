@@ -1,7 +1,7 @@
 import React from 'react';
 
 function Header() {
-  return <h2>Menu Test</h2>;
+  return <h1>OpenTable Menu</h1>;
 }
 
 export default Header;
