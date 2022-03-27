@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Dropdown, DropdownButton, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Button, Dropdown, DropdownButton, Modal, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { addToOrder } from '../redux/actions/orderAction';
 import { errors } from '../utils/labels';
@@ -11,13 +11,32 @@ function CourseActions({ courseId, courseCategory, courseName, coursePrice }) {
   const [disableBtn, setDisableBtn] = useState(false);
   const [disableBtn1, setDisableBtn1] = useState(false);
   const [disableBtn2, setDisableBtn2] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const orders = useSelector((state) => state.orders);
+
+  const pierreCheck = (dinerId, crsName) => {
+    // Pierre the snobby waiter will not let you have a prawn cocktail and salmon fillet in the same meal.
+    const forbidden = ['Prawn cocktail', 'Salmon fillet'];
+    const dinerCurrOrder = orders[dinerId];
+    if (!dinerCurrOrder?.length) return true;
+    if (forbidden.includes(crsName)) {
+      const found = dinerCurrOrder.find((item) => forbidden.includes(item.name));
+      return !found;
+    }
+    return true;
+  };
 
   const addOrderToDiner = (dinerId, category, crsId, crsName, crsPrice) => {
-    dispatch(addToOrder(dinerId, category, crsId, crsName, crsPrice));
-    if (dinerId === 'diner1') setDisableBtn1(true);
-    else setDisableBtn2(true);
-    if (category === 'desserts' && courseName === 'Cheesecake') {
-      setDisableBtn(true);
+    const pierreCheckPassed = pierreCheck(dinerId, crsName);
+    if (pierreCheckPassed) {
+      dispatch(addToOrder(dinerId, category, crsId, crsName, crsPrice));
+      if (dinerId === 'diner1') setDisableBtn1(true);
+      else setDisableBtn2(true);
+      if (category === 'desserts' && courseName === 'Cheesecake') {
+        setDisableBtn(true);
+      }
+    } else {
+      setShowModal(true);
     }
   };
 
@@ -64,7 +83,26 @@ function CourseActions({ courseId, courseCategory, courseName, coursePrice }) {
     </DropdownButton>
   );
 
-  return disableBtn ? generateOverlayBtn(dropdownBtn) : dropdownBtn;
+  const pierreCheckModal = (
+    <Modal show={showModal} onHide={() => setShowModal(false)}>
+      <Modal.Header closeButton>
+        <Modal.Title>🤵 Pierre</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>{errors[3]}</Modal.Body>
+      <Modal.Footer>
+        <Button variant="primary" onClick={() => setShowModal(false)}>
+          Got it!
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+
+  return (
+    <>
+      {pierreCheckModal}
+      {disableBtn ? generateOverlayBtn(dropdownBtn) : dropdownBtn}
+    </>
+  );
 }
 
 CourseActions.propTypes = {
