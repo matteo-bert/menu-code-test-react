@@ -8,7 +8,7 @@ function OrderList({ orders }) {
   const list = orders.length
     ? orders.map((order) => (
         <li key={`${order.id}-${Math.random()}`}>
-          {order.name} ({currency} {order.price.toFixed(2)})
+          {order.category}: {order.name} ({currency} {order.price.toFixed(2)})
         </li>
       ))
     : '';

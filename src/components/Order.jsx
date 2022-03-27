@@ -75,7 +75,7 @@ function Order() {
         </Col>
       </Row>
       <Row>
-        {!isValid && validationErrors.size ? (
+        {!isValid && validationErrors?.size ? (
           <Alert key="order-alerts" variant="warning">
             <Alert.Heading>Hey, this order is not ready yet!</Alert.Heading>
             Please have a look at the following issues:
