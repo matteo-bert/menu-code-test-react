@@ -1,6 +1,11 @@
-export const addToOrder = (orderId, courseId, courseName, coursePrice) => ({
+export const initOrders = () => ({
+  type: 'INIT_ORDER',
+});
+
+export const addToOrder = (orderId, courseCategory, courseId, courseName, coursePrice) => ({
   type: 'ADD_TO_ORDER',
   orderId,
+  courseCategory,
   courseId,
   courseName,
   coursePrice,

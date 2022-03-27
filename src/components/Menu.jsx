@@ -27,9 +27,9 @@ function Menu() {
 
   return (
     <div>
-      <CourseOptionGroup id="starters" />
-      <CourseOptionGroup id="mains" />
-      <CourseOptionGroup id="desserts" />
+      <CourseOptionGroup courseCategory="starters" />
+      <CourseOptionGroup courseCategory="mains" />
+      <CourseOptionGroup courseCategory="desserts" />
     </div>
   );
 }

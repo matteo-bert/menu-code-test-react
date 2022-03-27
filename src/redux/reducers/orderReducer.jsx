@@ -10,11 +10,20 @@ const orders = (state = initialState, action) => {
   let newState;
 
   switch (action.type) {
-    case 'RESET_ORDER':
-      return initialState;
+    case 'INIT_ORDER':
+      return {
+        diner1: [],
+        diner2: [],
+        total: 0,
+      };
     case 'ADD_TO_ORDER':
       newTotal = state.total + action.coursePrice;
-      newObj = { id: action.courseId, name: action.courseName, price: action.coursePrice };
+      newObj = {
+        id: action.courseId,
+        category: action.courseCategory,
+        name: action.courseName,
+        price: action.coursePrice,
+      };
       newState = { ...state, total: newTotal };
       newState[action.orderId].push(newObj);
       return newState;
