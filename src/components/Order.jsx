@@ -40,7 +40,7 @@ function Order() {
 
   useEffect(() => {
     const orderConstrains = [false, false];
-    // 0 - Each person must have at least two courses, one of which must be a main.
+    // Each person must have at least two courses, one of which must be a main.
     const diner1Orders = orders.diner1;
     const diner2Orders = orders.diner2;
     orderConstrains[0] = checkIfHasTwoCourseAndAMain(diner1Orders);

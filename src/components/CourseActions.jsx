@@ -8,6 +8,7 @@ import { errors } from '../utils/labels';
 
 function CourseActions({ courseId, courseCategory, courseName, coursePrice }) {
   const dispatch = useDispatch();
+  const [disableBtn, setDisableBtn] = useState(false);
   const [disableBtn1, setDisableBtn1] = useState(false);
   const [disableBtn2, setDisableBtn2] = useState(false);
 
@@ -15,9 +16,21 @@ function CourseActions({ courseId, courseCategory, courseName, coursePrice }) {
     dispatch(addToOrder(dinerId, category, crsId, crsName, crsPrice));
     if (dinerId === 'diner1') setDisableBtn1(true);
     else setDisableBtn2(true);
+    if (category === 'desserts' && courseName === 'Cheesecake') {
+      setDisableBtn(true);
+    }
   };
 
-  const generateOverlay = (body) => (
+  const generateOverlayBtn = (body) => (
+    // There is only one piece of cheesecake left.
+    <OverlayTrigger
+      overlay={<Tooltip id={`tooltip-cheesecake-disabled-${courseId}-${courseCategory}`}>{errors[2]}</Tooltip>}
+    >
+      <span className="d-inline-block">{body}</span>
+    </OverlayTrigger>
+  );
+
+  const generateOverlayItm = (body) => (
     // Each diner cannot have more than one of the same course.
     <OverlayTrigger
       overlay={<Tooltip id={`tooltip-same-course-disabled-${courseId}-${courseCategory}`}>{errors[1]}</Tooltip>}
@@ -44,12 +57,14 @@ function CourseActions({ courseId, courseCategory, courseName, coursePrice }) {
     </Dropdown.Item>
   );
 
-  return (
-    <DropdownButton variant="primary" title="">
-      {disableBtn1 ? generateOverlay(addToDiner1DropdownItm) : addToDiner1DropdownItm}
-      {disableBtn2 ? generateOverlay(addToDiner2DropdownItm) : addToDiner2DropdownItm}
+  const dropdownBtn = (
+    <DropdownButton variant="primary" title="" disabled={disableBtn}>
+      {disableBtn1 ? generateOverlayItm(addToDiner1DropdownItm) : addToDiner1DropdownItm}
+      {disableBtn2 ? generateOverlayItm(addToDiner2DropdownItm) : addToDiner2DropdownItm}
     </DropdownButton>
   );
+
+  return disableBtn ? generateOverlayBtn(dropdownBtn) : dropdownBtn;
 }
 
 CourseActions.propTypes = {
