@@ -1,17 +1,26 @@
-const initialState = [
-  { dinerId: 'diner1', courseOrdered: [] },
-  { dinerId: 'diner2', courseOrdered: [] },
-];
+const initialState = {
+  diner1: [],
+  diner2: [],
+  total: 0,
+};
 
-const orders = (state = initialState, { type } = {}) => {
-  switch (type) {
+const orders = (state = initialState, action) => {
+  let newTotal;
+  let newObj;
+  let newState;
+
+  switch (action.type) {
+    case 'RESET_ORDER':
+      return initialState;
     case 'ADD_TO_ORDER':
-      // todo
-      return state;
+      newTotal = state.total + action.coursePrice;
+      newObj = { id: action.courseId, name: action.courseName, price: action.coursePrice };
+      newState = { ...state, total: newTotal };
+      newState[action.orderId].push(newObj);
+      return newState;
     case 'REMOVE_FROM_ORDER':
       // todo
       return state;
-    case 'UPDATE_USER':
     default:
       return state;
   }

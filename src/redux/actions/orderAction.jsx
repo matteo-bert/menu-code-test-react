@@ -1,7 +1,9 @@
-export const addToOrder = (orderId, courseId) => ({
+export const addToOrder = (orderId, courseId, courseName, coursePrice) => ({
   type: 'ADD_TO_ORDER',
   orderId,
   courseId,
+  courseName,
+  coursePrice,
 });
 
 export const removeFromOrder = (orderId, courseId) => ({

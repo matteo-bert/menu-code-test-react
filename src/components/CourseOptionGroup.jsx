@@ -17,7 +17,7 @@ function CourseOptionGroup({ id }) {
           {currency} {opt.price.toFixed(2)}
         </Col>
         <Col md="1" style={{ textAlign: 'right' }}>
-          <CourseAction courseId={opt.id} />
+          <CourseAction courseId={opt.id} courseName={opt.name} coursePrice={opt.price} />
         </Col>
       </Row>
     </ListGroupItem>

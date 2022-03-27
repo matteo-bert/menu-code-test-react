@@ -21,5 +21,6 @@ module.exports = {
   rules: {
     'linebreak-style': 0,
     'no-console': 'off',
+    "default-param-last": 0
   },
 };
